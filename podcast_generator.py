@@ -233,7 +233,7 @@ def synthesize_speech(script_data):
                         settings=VoiceSettings(stability=stability, similarity_boost=similarity_boost)),
             model="eleven_multilingual_v2",
         )
-        temp_filename = f'temp_audio_{idx}.mp3'
+        temp_filename = f'outputs//temp_audio_{idx}.mp3'
         with open(temp_filename, 'wb') as f:
             for i in audio:
                 f.write(i)

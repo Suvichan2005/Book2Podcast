@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book/Article to Podcast Converter</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto my-10 px-4">
+        <h1 class="text-3xl font-bold mb-5 text-center">Convert Document to Podcast</h1>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="max-w-md mx-auto mb-4">
+                    {% for message in messages %}
+                        <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+                            <p>{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <form id="upload-form" action="/" method="post" enctype="multipart/form-data" class="max-w-md mx-auto bg-white p-8 rounded shadow">
+            <div class="mb-4">
+                <label class="block text-gray-700 font-bold mb-2">Select Document</label>
+                <input type="file" name="document" class="w-full px-3 py-2 border border-gray-300 rounded" required>
+            </div>
+            <div class="mb-6">
+                <label class="block text-gray-700 font-bold mb-2">Format Option</label>
+                <div class="flex items-center">
+                    <label class="inline-flex items-center mr-4">
+                        <input type="radio" class="form-radio" name="format_option" value="monologue" checked>
+                        <span class="ml-2">Monologue</span>
+                    </label>
+                    <label class="inline-flex items-center">
+                        <input type="radio" class="form-radio" name="format_option" value="dialogue">
+                        <span class="ml-2">Dialogue</span>
+                    </label>
+                </div>
+            </div>
+            <button id="submit-btn" type="submit" class="w-full px-3 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Convert</button>
+        </form>
+
+        <div id="progress-container" class="max-w-md mx-auto mt-5 hidden">
+            <div class="w-full bg-gray-200 rounded-full">
+                <div id="progress-bar" class="bg-blue-500 text-xs leading-none py-1 text-center text-white rounded-full" style="width: 100%;">Processing...</div>
+            </div>
+        </div>
+
+        {% if audio_url %}
+        <div class="mt-10 text-center">
+            <h2 class="text-2xl font-bold mb-4">Your Podcast is Ready</h2>
+            <audio controls class="w-full max-w-md mx-auto">
+                <source src="{{ audio_url }}" type="audio/mp3">
+            </audio>
+            <div class="mt-4">
+                <a href="{{ audio_url }}" download class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Download Podcast</a>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        document.getElementById('upload-form').addEventListener('submit', function(event) {
+            document.getElementById('progress-container').classList.remove('hidden');
+            document.getElementById('submit-btn').disabled = true;
+        });
+    </script>
+</body>
+</html>

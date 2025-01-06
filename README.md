@@ -1,0 +1,1 @@
+Generate automation podcast solution that could transfer certain material (book or article) into appealing script with chosen voice (could use api from deepgram or 11labs). It's a big plus if you can generate emulate two people talking on a live podcast.
